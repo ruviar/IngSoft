@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.InicioActivity">
+
+    <LinearLayout
+        android:id="@+id/title_block"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicio"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/img_inicio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="Imagen inicio"
+        android:src="@drawable/img_bookuad_inicio"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/title_block"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.45"
+        android:layout_marginTop="16dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_quad"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/primary"
+        android:elevation="6dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Quad"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_inicio" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_reserva"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/primary"
+        android:elevation="6dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:text="Reserva"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_quad" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

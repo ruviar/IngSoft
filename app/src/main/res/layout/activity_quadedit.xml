@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.QuadEdit">
+
+    <!-- Title block matching other screens -->
+    <LinearLayout
+        android:id="@+id/title_block"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Añadir Quad"
+            android:textColor="@color/black"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Form scrolls and fills remaining area under the title -->
+
+    <ScrollView
+        android:id="@+id/form_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/title_block"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:weightSum="6">
+
+            <EditText
+                android:id="@+id/edit_matricula"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="Matrícula"
+                android:inputType="text"
+                android:background="@drawable/edittext_border"
+                android:padding="8dp" />
+
+            <EditText
+                android:id="@+id/edit_precio"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="Precio/Día(€)"
+                android:inputType="number"
+                android:background="@drawable/edittext_border"
+                android:padding="8dp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+
+                <RadioGroup
+                    android:id="@+id/radio_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/radio_uniplaza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Monoplaza" />
+
+                    <RadioButton
+                        android:id="@+id/radio_biplaza"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Biplaza" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/edit_descripcion"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:hint="Descripción"
+                android:inputType="textMultiLine"
+                android:background="@drawable/edittext_border"
+                android:padding="8dp"
+                android:layout_marginTop="12dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.78" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_confirm"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="#00E676"
+        android:text="CONFIRMAR"
+        android:textAllCaps="true"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

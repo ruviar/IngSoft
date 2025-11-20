@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Bookuad</string>
+    <string name="hint_title">Type title ...</string>
+    <string name="hint_body">Type body ...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Item not saved because required field is empty.</string>
+    <string name="add_note">Add quad</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_edit">Edit</string>
+    <string name="add_reserva">Add reservation</string>
+    <string name="title">Title</string>
+    <string name="body">Body</string>
+</resources>

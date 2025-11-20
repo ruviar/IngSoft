@@ -1,0 +1,1055 @@
+\documentclass[12pt,a4paper]{article}
+
+% Paquetes necesarios
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+
+% Configuración de página
+\geometry{
+    left=2.5cm,
+    right=2.5cm,
+    top=3cm,
+    bottom=3cm,
+    headheight=15pt
+}
+
+% Configuración de encabezado y pie de página
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{2025/2026 Ingeniería del Software}}
+\fancyhead[R]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Configuración de títulos
+\titleformat{\section}
+  {\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}{\thesubsection}{1em}{}
+
+% Configuración de enlaces
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=magenta,      
+    urlcolor=blue,
+    pdftitle={T234-quads - Sistema de Gestión de Reservas},
+}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Ingeniería del Software\par}
+    \vspace{0.5cm}
+    {\Large CURSO 2025-2026\par}
+    \vspace{2cm}
+    
+    {\LARGE\bfseries Memoria\par}
+    \vspace{1cm}
+    {\Large Sistema de Gestión de Reservas de Quads\par}
+    \vspace{1cm}
+    {\large T234-quads\par}
+    
+    \vfill
+    
+    {\large Año 3 - Cuatrimestre 1\par}
+    {\large 2025/2026\par}
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+% Contenido principal
+\section{Introducción y objetivos}
+
+El principal objetivo es realizar el análisis inicial de un sistema de gestión de reservas de quads, que sirva como base para fases posteriores de diseño, implementación y pruebas.
+
+En esta práctica se aborda el proceso de especificación de requisitos, tanto funcionales como no funcionales, así como la definición de las restricciones del sistema. A partir de ellos, se han elaborado los casos de uso y sus flujos de eventos, representados mediante diagramas UML (casos de uso, clases y secuencia) que describen la estructura y el comportamiento dinámico del sistema.
+
+Los objetivos principales de este trabajo son:
+
+\begin{itemize}
+    \item Identificar y priorizar los requisitos del sistema (con MoSCoW).
+    \item Establecer las restricciones que limitan el funcionamiento del sistema.
+    \item Modelar los casos de uso y detallar sus flujos principales y alternativos.
+    \item Representar gráficamente la estructura estática del sistema mediante un diagrama de clases.
+    \item Describir el comportamiento dinámico del sistema mediante diagramas de secuencia.
+    \item Sentar las bases para la posterior fase de diseño e implementación de la aplicación de gestión de reservas de quads.
+\end{itemize}
+
+\section{Requisitos}
+
+\subsection{Requisitos Funcionales}
+
+\begin{longtable}{|p{1.5cm}|p{9cm}|p{2cm}|}
+\hline
+\textbf{Nº Requisito} & \textbf{Requisito funcional} & \textbf{MoSCoW} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Nº Requisito} & \textbf{Requisito funcional} & \textbf{MoSCoW} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+R.F. 1 & El Sistema debe permitir la adición de un nuevo quad, almacenando su matrícula, tipo de quad, precio en euros del alquiler por día y descripción. & Must \\
+\hline
+
+R.F. 2 & El Sistema debe permitir la consulta de un listado de quads previamente creados, pudiéndose ordenar por matrícula, tipo o precio. & Must \\
+\hline
+
+R.F. 3 & El Sistema debe permitir la modificación de los quads previamente creados, así como la actualización del precio de las reservas a las que esté asociado dicho quad. & Must \\
+\hline
+
+R.F. 4 & El Sistema debe permitir la eliminación de los quads, así como la actualización del precio de las reservas a las que esté asociado dicho quad previamente creados. & Must \\
+\hline
+
+R.F. 5 & El Sistema debe permitir la creación de una reserva, indicando un nombre de cliente, el número móvil del cliente, la fecha de recogida y devolución, y una selección de quads, indicando también si se va a necesitar casco para su conducción. & Must \\
+\hline
+
+R.F. 6 & El Sistema debería permitir la consulta de un listado de las reservas previamente creadas, pudiéndose ordenar por nombre de cliente, número de móvil, fecha de recogida, o fecha de devolución. & Must \\
+\hline
+
+R.F. 7 & El Sistema debe permitir la modificación de las reservas previamente creadas. & Must \\
+\hline
+
+R.F. 8 & El Sistema debe permitir la eliminación de las reservas previamente creadas. & Must \\
+\hline
+
+R.F. 9 & El Sistema debe permitir calcular automáticamente el precio total de una reserva. & Must \\
+\hline
+
+R.F. 10 & El Sistema debe permitir el envío al móvil del cliente de la información de la reserva (incluido precio). & Must \\
+\hline
+
+\end{longtable}
+
+\subsection{Requisitos No Funcionales}
+
+\begin{longtable}{|p{1.5cm}|p{9cm}|p{2cm}|}
+\hline
+\textbf{Nº Requisito} & \textbf{Requisito no funcional} & \textbf{MoSCoW} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Nº Requisito} & \textbf{Requisito no funcional} & \textbf{MoSCoW} \\
+\hline
+\endhead
+
+\hline
+\endfoot
+
+R.N.F. 1 & El Sistema no permitirá la creación de un nuevo quad si hay 100 quads existentes. & \\
+\hline
+
+R.N.F. 2 & El Sistema no permitirá la creación de una nueva reserva si hay 20000 reservas existentes. & \\
+\hline
+
+\end{longtable}
+
+\section{Restricciones}
+
+La aplicación debe estar disponible para los dispositivos con un sistema operativo Android.
+
+\newpage
+
+\section{Análisis}
+
+\subsection{Diagrama de casos de uso}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imagenes/casos_de_uso.png}
+\caption{Diagrama de casos de uso completo}
+\end{figure}
+
+\subsubsection{Añadir nuevo quad}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso comienza cuando el administrador selecciona la opción ``Añadir quad'' desde la pantalla principal.
+    \item El sistema muestra un formulario solicitando los datos del quad: matrícula, tipo, precio por día y descripción.
+    \item El administrador rellena los campos y pulsa el botón ``CONFIRMAR''.
+    \item El sistema valida los datos, guarda el quad en la base de datos y muestra un mensaje de confirmación.
+    \item El caso de uso termina volviendo a la pantalla principal.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 3, el administrador pulsa ``Aceptar'' sin rellenar todos los campos requeridos o con datos inválidos, como una matrícula duplicada.
+    \item El sistema muestra un mensaje de error indicando los campos a corregir.
+    \item El caso de uso continúa en el paso 2 del flujo principal.
+\end{itemize}
+
+\subsubsection{Consultar listado de quads}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El administrador selecciona la opción ``Consultar listado de quads''.
+    \item El sistema muestra un listado de los quads disponibles.
+    \item \textit{extend} Ordenar listado de quads por matrícula, tipo o precio.
+    \item El caso de uso termina cuando el administrador regresa a la pantalla principal.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 2, si no existen quads registrados, el sistema muestra un mensaje de advertencia ``No hay quads registrados''.
+    \item El caso de uso finaliza al cerrar el aviso.
+\end{itemize}
+
+\subsubsection{Modificar datos quad}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso parte del flujo de ``Consultar listado de quads''.
+    \item El administrador selecciona un quad del listado y pulsa ``Modificar''.
+    \item El sistema muestra un formulario con los datos actuales del quad.
+    \item El administrador modifica los campos deseados y pulsa ``Aplicar cambios''.
+    \item El sistema actualiza los datos y muestra un mensaje de confirmación.
+    \item El listado se actualiza con la información modificada.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 4, el administrador deja algún campo requerido vacío o introduce un valor inválido.
+    \item El sistema muestra los campos en rojo y un mensaje indicando el error.
+    \item El caso de uso continúa en el paso 3.
+\end{itemize}
+
+\subsubsection{Eliminar quad}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso parte de ``Consultar listado de quads''.
+    \item El administrador selecciona un quad y pulsa la opción ``Eliminar''.
+    \item El sistema muestra un mensaje de confirmación.
+    \item El administrador pulsa ``Aceptar'' y el quad se elimina del sistema.
+    \item El caso de uso termina actualizando el listado.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 4, el administrador pulsa ``Cancelar''.
+    \item El quad no se elimina y el caso de uso termina sin cambios.
+\end{itemize}
+
+\subsubsection{Crear reserva}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El administrador selecciona la opción ``Crear reserva''.
+    \item El sistema muestra un formulario solicitando nombre del cliente, número de móvil, fechas de recogida y devolución, selección de quad y cascos necesarios.
+    \item El administrador rellena los datos y pulsa ``Aceptar''.
+    \item \textit{include} Validar fechas de la reserva.
+    \item \textit{include} Calcular precio total automáticamente.
+    \item El sistema guarda la reserva y muestra un mensaje de confirmación.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 3, algún campo requerido no está relleno y el sistema muestra un mensaje de error.
+    \item En el paso 4, las fechas no son válidas, por ejemplo devolución antes que recogida, y el sistema muestra error y devuelve al paso 2.
+\end{itemize}
+
+\subsubsection{Consultar listado de reservas}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El administrador selecciona la opción ``Consultar reservas''.
+    \item El sistema muestra un listado de las reservas existentes.
+    \item \textit{extend} Ordenar listado de reservas por cliente, móvil, fecha recogida o devolución.
+    \item El caso de uso termina cuando el administrador vuelve a la pantalla principal.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 2, si no existen reservas registradas, el sistema muestra un mensaje de advertencia ``No hay reservas registradas''.
+    \item El caso de uso finaliza al cerrar el aviso.
+\end{itemize}
+
+\subsubsection{Modificar reserva}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso parte de ``Consultar listado de reservas''.
+    \item El administrador selecciona una reserva y pulsa ``Modificar''.
+    \item El sistema muestra un formulario con los datos actuales de la reserva.
+    \item El administrador edita los campos y pulsa ``Aplicar cambios''.
+    \item \textit{include} Validar fechas de la reserva.
+    \item \textit{include} Recalcular precio total.
+    \item El sistema actualiza los datos y muestra un mensaje de confirmación.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 4, algún campo requerido queda vacío o inválido y el sistema marca los errores y vuelve al paso 3.
+    \item En el paso 5, las fechas no son válidas y el sistema muestra error y se vuelve al paso 3.
+\end{itemize}
+
+\subsubsection{Eliminar reserva}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso parte de ``Consultar listado de reservas''.
+    \item El administrador selecciona una reserva y pulsa ``Eliminar''.
+    \item El sistema solicita confirmación.
+    \item El administrador pulsa ``Aceptar'' y la reserva se elimina.
+    \item El listado se actualiza y el caso de uso termina.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 4, el administrador pulsa ``Cancelar''.
+    \item La reserva no se elimina y el caso de uso termina sin cambios.
+\end{itemize}
+
+\subsubsection{Calcular precio de la reserva}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso comienza cuando el sistema recibe los datos de una reserva (fechas y quad seleccionado).
+    \item El sistema calcula la duración de la reserva en días.
+    \item El sistema multiplica el número de días por el precio por día del quad seleccionado.
+    \item Si se han solicitado cascos, añade el suplemento correspondiente.
+    \item El sistema guarda el precio total en la reserva y lo muestra en pantalla.
+    \item El caso de uso termina devolviendo el control al caso de uso padre.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 2, si las fechas no son válidas (ej. devolución anterior a recogida), el sistema no puede calcular el precio y muestra un mensaje de error.
+    \item El caso de uso retorna al paso 2 del flujo principal de ``Crear reserva'' o ``Modificar reserva''.
+\end{itemize}
+
+\textbf{Nota:} Si el administrador modifica el precio diario de un quad, las reservas ya existentes no se ven afectadas, conservando el precio total calculado en el momento de su creación. Solo las nuevas reservas usarán el precio actualizado.
+
+\subsubsection{Enviar información de la reserva al cliente}
+
+\textbf{Flujo principal:}
+
+\begin{enumerate}
+    \item El caso de uso comienza cuando al menos una reserva ha sido validada y guardada en el sistema.
+    
+    \textbf{Nota:} Una reserva se considera válida cuando:
+    \begin{itemize}
+        \item Las fechas de recogida y devolución son coherentes (la devolución es posterior a la recogida).
+        \item El quad seleccionado está disponible en ese rango de fechas.
+        \item Se ha proporcionado un nombre y número de teléfono válidos del cliente.
+        \item Se ha calculado correctamente el precio total asociado a la reserva.
+    \end{itemize}
+    
+    \item El administrador selecciona una reserva y le da al botón de ``Enviar Información''.
+    \item El sistema prepara un mensaje con los datos de la reserva: nombre del cliente, fechas, quad seleccionado, cascos y precio total.
+    \item El sistema envía el mensaje al número de móvil proporcionado por el cliente.
+    \item El caso de uso termina devolviendo el control al caso de uso padre.
+\end{enumerate}
+
+\textbf{Flujo alternativo:}
+
+\begin{itemize}
+    \item En el paso 3, si no se puede enviar el mensaje (ej. número inválido), el sistema muestra un aviso al administrador.
+    \item El caso de uso termina sin enviar la notificación, pero la reserva queda registrada.
+\end{itemize}
+
+\newpage
+
+\subsection{Diagrama de clases}
+
+El diagrama de clases presentado a continuación representa el modelo estático del sistema de gestión de alquiler de quads a nivel de análisis. Este modelo captura las entidades fundamentales del dominio del problema, sus atributos, operaciones y relaciones, sin considerar aún aspectos de implementación o interfaz de usuario.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imagenes/clases_sencillo.png}
+\caption{Diagrama de clases - Análisis}
+\end{figure}
+
+\subsubsection{Clase Quad}
+
+Representa los vehículos disponibles para alquiler en el sistema.
+
+\textbf{Atributos:}
+
+\begin{itemize}
+    \item \textbf{Tipo:} Clasificación del quad (monoplaza o biplaza)
+    \item \textbf{Precio (double):} Coste de alquiler por día en euros
+    \item \textbf{Matrícula (string):} Identificador único del vehículo (formato: 4 dígitos + 3 letras)
+    \item \textbf{Descripción (string):} Información adicional sobre marca, modelo, color, etc.
+\end{itemize}
+
+\textbf{Operaciones:}
+
+\begin{itemize}
+    \item \texttt{Quad(matricula: String, tipo: String, precioDia: double, descripcion: String)}: Constructor para crear nuevos quads.
+    \item \texttt{\~{}Quad()}: Destructor de la clase.
+    \item \texttt{consultarDatos(): string} Devuelve la información completa del quad.
+    \item \texttt{modificarDatos(tipo, precio: int, descripción: string): void} Permite actualizar los datos del quad.
+    \item \texttt{eliminarQuad(): void} Elimina el quad del sistema.
+    \item \texttt{estaDisponible(fechaInicio, fechaFin): boolean} Verifica si el quad está disponible en un rango de fechas.
+    \item \texttt{listarQuads(): void} Operación de clase para obtener todos los quads del sistema.
+\end{itemize}
+
+\subsubsection{Clase Reserva}
+
+Representa las reservas realizadas por los clientes.
+
+\textbf{Atributos:}
+
+\begin{itemize}
+    \item \textbf{idReserva (int):} Identificador único de la reserva
+    \item \textbf{nomCliente (string):} Nombre del cliente
+    \item \textbf{telefono (int):} Número de teléfono del cliente
+    \item \textbf{FechaRecogida (string):} Fecha de inicio del alquiler
+    \item \textbf{FechaDevolución (string):} Fecha de fin del alquiler
+    \item \textbf{PrecioTotal (double):} Coste total de la reserva
+\end{itemize}
+
+\textbf{Operaciones:}
+
+\begin{itemize}
+    \item \texttt{crearReserva(idReserva: int, nomCliente: String, telefono: int, fechaRecogida: String, fechaDevolucion: String, quad: Quad, numCascos: int)}: Constructor para crear nuevas reservas.
+    \item \texttt{\~{}Reserva()}: Destructor de reserva.
+    \item \texttt{getDuration(): int} Calcula la duración de la reserva en días.
+    \item \texttt{calcularPrecio(): double} Determina el precio total basado en la duración y el quad.
+    \item \texttt{validarFechas(): boolean} Verifica que las fechas sean coherentes.
+    \item \texttt{validarCascos(): boolean} Comprueba que el número de cascos sea adecuado para el tipo de quad.
+    \item \texttt{listarReservas(): void} Operación de clase para obtener todas las reservas.
+    \item \texttt{enviarInformacion(): void} Envía al cliente los datos de la reserva (nombre, fechas, quad, cascos y precio total) al número de teléfono registrado.
+\end{itemize}
+
+\subsubsection{Entidad Cascos}
+
+Aunque en el diagrama inicial aparece como clase separada, se considera que \texttt{numCascos} debería ser un atributo de la relación \texttt{Quad\_Reserva}, ya que los cascos no tienen existencia independiente en el sistema.
+
+\subsubsection{Relaciones entre clases}
+
+\textbf{Reserva \& Quad:} Relación de asociación donde cada reserva hace referencia a los quad alquilados.
+
+\textbf{Multiplicidad:} Una reserva está asociada a uno o varios quads y un quad puede tener de cero a múltiples reservas (N:M).
+
+\newpage
+
+\subsection{Diagramas de secuencia}
+
+\subsubsection{Añadir nuevo quad}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_crear_quad.png}
+\caption{Diagrama de secuencia - Añadir nuevo quad}
+\end{figure}
+
+\subsubsection{Consultar listado de quads}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_consultar_listado_quads.png}
+\caption{Diagrama de secuencia - Consultar listado de quads}
+\end{figure}
+
+\subsubsection{Modificar quad}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_crear_quad.png}
+\caption{Diagrama de secuencia - Modificar quad}
+\end{figure}
+
+\subsubsection{Eliminar quad}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_eliminar_quad.png}
+\caption{Diagrama de secuencia - Eliminar quad}
+\end{figure}
+
+\subsubsection{Crear reserva}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_calcular_precio.png}
+\caption{Diagrama de secuencia - Crear reserva}
+\end{figure}
+
+\subsubsection{Consultar listado de reservas}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_consultar_listado_reservas.png}
+\caption{Diagrama de secuencia - Consultar listado de reservas}
+\end{figure}
+
+\subsubsection{Modificar reserva}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_calcular_precio.png}
+\caption{Diagrama de secuencia - Modificar reserva}
+\end{figure}
+
+\subsubsection{Eliminar reserva}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{imagenes/secuencia_eliminar_reserva.png}
+\caption{Diagrama de secuencia - Eliminar reserva}
+\end{figure}
+
+\newpage
+
+\subsection{Prototipos de pantalla}
+
+El prototipado de la interfaz para el usuario se ha hecho a partir de Visual Paradigm, usando la herramienta Android Phone Wireframe. El diseño de la interfaz sigue estrictamente las especificaciones definidas en los requisitos funcionales definidos anteriormente, pudiéndose realizar todos los casos de uso también definidos.
+
+Las pantallas se muestran a continuación:
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_inicio.png}
+\caption{Pantalla principal con opciones Quads y Reservas}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_lista_quads.png}
+\caption{Pantalla de listado de quads}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_anadir_quad.png}
+\caption{Pantalla de añadir/modificar quad}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_datos_quad.png}
+\caption{Pantalla de detalles de quad}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_lista_reservas.png}
+\caption{Pantalla de listado de reservas}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_anadir_reserva.png}
+\caption{Pantalla de crear/modificar reserva}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.45\textwidth]{imagenes/pantalla_reserva_especifica.png}
+\caption{Pantalla de detalles de reserva}
+\end{figure}
+
+\vspace{1cm}
+
+La interfaz del sistema se ha diseñado para ser sencilla, intuitiva y funcional. Desde la pantalla de inicio, el administrador puede acceder a los apartados ``Quads'' y ``Reservas''. En el apartado Quads, el sistema permite añadir un nuevo quad o consultar el listado de quads registrados. En dicho listado, los quads pueden filtrarse y ordenarse por matrícula, tipo o precio. Al seleccionar un quad concreto, se muestra una pantalla con sus datos, desde la cual es posible modificar su información o eliminarlo.
+
+El apartado Reservas funciona de forma análoga: se pueden crear nuevas reservas, consultar el listado existente, modificar o eliminar una reserva. Además, desde la pantalla de detalle de cada reserva, el sistema ofrece la opción de enviar la información de la reserva al cliente.
+
+No se incluyen pantallas de retroalimentación así como manejo de errores o feedback para éxito por simplicidad en la fase de desarrollo de diseño. Estas se incluirán en la fase del desarrollo del prototipo funcional.
+
+\newpage
+
+\subsection{Mapa de navegación}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imagenes/mapa_navegacion.png}
+\caption{Mapa de navegación completo mostrando flujos entre pantallas}
+\end{figure}
+
+El mapa de navegación muestra la estructura jerárquica de las pantallas de la aplicación y los flujos de navegación entre ellas. Desde la pantalla principal se puede acceder a las secciones de Quads y Reservas, y desde cada una de estas se pueden realizar las operaciones CRUD correspondientes.
+
+\newpage
+
+\subsection{Modelo lógico de la base de datos relacional}
+
+El desarrollo de este modelo se ha llevado a cabo mediante la herramienta Entity Relationship Diagram del paquete Database Modeling. El diagrama consta de 2 entidades principales, Quad y Reserva, unidas mediante una relación N:M de la cual sale la entidad \texttt{Quad\_Reserva}, dentro de la cual se ha añadido el atributo \texttt{numCascos}, que representa el número de cascos asignados a uno de los quads en una reserva determinada.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{imagenes/diagrama_entidad_relacion.png}
+\caption{Diagrama entidad-relación de la base de datos}
+\end{figure}
+
+El diagrama se muestra a continuación:
+
+\begin{lstlisting}[language=SQL, basicstyle=\ttfamily\small, frame=single, numbers=left]
+-- -----------------------------------------------------
+-- Tabla: Quad
+-- Basada en la configuracion que acabamos de hacer.
+-- -----------------------------------------------------
+CREATE TABLE Quad (
+    id_quad INTEGER PRIMARY KEY AUTOINCREMENT,
+    matricula VARCHAR(20) NOT NULL UNIQUE,
+    tipo VARCHAR(20) NOT NULL,
+    precio_dia REAL NOT NULL,
+    descripcion TEXT
+);
+
+-- -----------------------------------------------------
+-- Tabla: Reserva
+-- -----------------------------------------------------
+CREATE TABLE Reserva (
+    id_reserva INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre_cliente VARCHAR(255) NOT NULL,
+    telefono_cliente VARCHAR(20),
+    fecha_recogida DATETIME NOT NULL,
+    fecha_devolucion DATETIME NOT NULL,
+    precio_total REAL NOT NULL
+);
+
+-- -----------------------------------------------------
+-- Tabla: Quad_Reserva (Tabla intermedia para N:M)
+-- Resuelve la relacion Muchos a Muchos entre Reserva y Quad.
+-- -----------------------------------------------------
+CREATE TABLE Quad_Reserva (
+    id_reserva_fk INTEGER NOT NULL,
+    id_quad_fk INTEGER NOT NULL,
+    numCascos INTEGER NOT NULL,
+    PRIMARY KEY (id_reserva_fk, id_quad_fk),
+    FOREIGN KEY (id_reserva_fk) REFERENCES Reserva (id_reserva),
+    FOREIGN KEY (id_quad_fk) REFERENCES Quad (id_quad)
+);
+\end{lstlisting}
+
+\subsection{Diagrama de paquetes}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imagenes/diagrama_paquetes.png}
+\caption{Diagrama de paquetes del sistema}
+\end{figure}
+
+El paquete \texttt{ui} es el encargado de todos los aspectos relacionados con la interfaz del usuario. Este se descompone a su vez en los sub-paquetes \texttt{uiReserva} y \texttt{uiQuad}, que agrupan la lógica de presentación (como ViewModels, Activities, etc.) para la gestión específica de las reservas y el manejo de los quads, respectivamente.
+
+Por otro lado, el paquete \texttt{database} es el encargado de todos los aspectos relacionados con la base de datos del sistema (DAO, Repositorios, AppQuadsRoomDatabase). Como indican las flechas de dependencia, tanto \texttt{uiReserva} como \texttt{uiQuad} necesitan acceder al paquete \texttt{database} para consultar y persistir la información.
+
+Finalmente, el paquete \texttt{send} es el encargado de todo lo relacionado con la gestión de una comunicación cómoda con el usuario (como el envío de notificaciones o mensajes SMS de confirmación).
+
+\subsection{Diagrama de componentes}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{imagenes/diagrama_componentes.png}
+\caption{Diagrama de componentes}
+\end{figure}
+
+El componente ``GestionReservasQuad'' representa la aplicación de gestión de reservas de quads y el componente ``Local Database'' representa la base de datos que almacena los quads y las reservas de la aplicación.
+
+\subsection{Diagrama de despliegue}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{imagenes/diagrama_despliegue.png}
+\caption{Diagrama de despliegue}
+\end{figure}
+
+Hay 2 artefactos: \texttt{app-debug.apk}, que es el paquete instalable de la aplicación generado al compilar el proyecto, y \texttt{SQLite}, que representa la base de datos local que utiliza la aplicación para almacenar y gestionar los datos.
+
+\newpage
+
+\section{Diseño de objetos}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imagenes/clases_diseño.png}
+\caption{Diagrama de diseño de objetos}
+\end{figure}
+
+El diagrama de diseño de objetos muestra la estructura detallada de las clases del sistema con sus atributos, métodos y relaciones, incluyendo los detalles de implementación específicos de la plataforma Android.
+
+\newpage
+
+\section{Diagramas de secuencia de diseño}
+
+\subsection{Crear reserva}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imagenes/secuencia_diseno_crear_reserva.png}
+\caption{Diagrama de secuencia de diseño - Crear reserva}
+\end{figure}
+
+Este diagrama muestra la interacción detallada entre los componentes del sistema durante la creación de una reserva, incluyendo la interfaz de usuario, el ViewModel, el Repository, el DAO y la base de datos.
+
+\subsection{Obtener listado de reservas}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imagenes/secuencia_diseno_listar_reserva.png}
+\caption{Diagrama de secuencia de diseño - Obtener listado de reservas}
+\end{figure}
+
+Este diagrama ilustra el flujo de obtención y visualización del listado de reservas, desde la petición del usuario hasta la presentación de los datos en la interfaz.
+
+\subsection{Eliminar Reserva}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{imagenes/secuencia_diseno_eliminar_reserva.png}
+\caption{Diagrama de secuencia de diseño - Eliminar reserva}
+\end{figure}
+
+Este diagrama detalla el proceso de eliminación de una reserva, incluyendo la confirmación del usuario y la actualización de la interfaz tras la operación.
+
+\newpage
+
+\section{Implementación en Android Studio}
+
+Esta sección describe el proceso de implementación del sistema de gestión de reservas de quads en Android Studio, siguiendo los diseños y especificaciones definidos en las secciones anteriores.
+
+\subsection{Tecnologías y herramientas utilizadas}
+
+\subsubsection{Entorno de desarrollo}
+
+\begin{itemize}
+    \item \textbf{Android Studio:} IDE oficial para desarrollo Android (versión Hedgehog | 2023.1.1 o superior)
+    \item \textbf{Lenguaje:} Java
+    \item \textbf{SDK mínimo:} Android API 24 (Android 7.0 Nougat)
+    \item \textbf{SDK objetivo:} Android API 34 (Android 14)
+    \item \textbf{Sistema de construcción:} Gradle 8.0
+\end{itemize}
+
+\subsubsection{Bibliotecas y frameworks}
+
+\begin{itemize}
+    \item \textbf{Room:} Librería de persistencia para gestión de base de datos SQLite
+    \item \textbf{LiveData:} Componente de arquitectura para datos observables
+    \item \textbf{ViewModel:} Componente de arquitectura para gestión del estado de UI
+    \item \textbf{RecyclerView:} Para mostrar listas eficientemente
+    \item \textbf{Material Design Components:} Para componentes de interfaz modernos
+    \item \textbf{SMS Manager:} Para envío de mensajes SMS a los clientes
+\end{itemize}
+
+\subsection{Arquitectura de la aplicación}
+
+La aplicación sigue el patrón de arquitectura \textbf{MVVM (Model-View-ViewModel)} recomendado por Google para aplicaciones Android, que proporciona una separación clara de responsabilidades y facilita el testing y mantenimiento del código.
+
+\subsubsection{Capas de la arquitectura}
+
+\begin{enumerate}
+    \item \textbf{Capa de presentación (UI):}
+    \begin{itemize}
+        \item Activities y Fragments
+        \item Adapters para RecyclerView
+        \item Layouts XML con Material Design
+    \end{itemize}
+    
+    \item \textbf{Capa de ViewModel:}
+    \begin{itemize}
+        \item QuadViewModel
+        \item ReservaViewModel
+        \item Gestión del estado de la UI
+        \item Comunicación con la capa de datos
+    \end{itemize}
+    
+    \item \textbf{Capa de datos:}
+    \begin{itemize}
+        \item Repository pattern para acceso a datos
+        \item QuadRepository
+        \item ReservaRepository
+    \end{itemize}
+    
+    \item \textbf{Capa de persistencia:}
+    \begin{itemize}
+        \item Room Database
+        \item DAOs (Data Access Objects)
+        \item Entidades (Entities)
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Estructura del proyecto}
+
+La estructura de paquetes del proyecto sigue las mejores prácticas de organización:
+
+\begin{lstlisting}[basicstyle=\ttfamily\small, frame=single]
+app/src/main/java/com/example/quadsreservas/
+  database/
+    AppQuadsRoomDatabase.java
+    entities/
+      Quad.java
+      Reserva.java
+      QuadReservaCrossRef.java
+    dao/
+      QuadDao.java
+      ReservaDao.java
+    repository/
+      QuadRepository.java
+      ReservaRepository.java
+  ui/
+    quad/
+      QuadActivity.java
+      QuadListActivity.java
+      QuadViewModel.java
+      QuadAdapter.java
+    reserva/
+      ReservaActivity.java
+      ReservaListActivity.java
+      ReservaViewModel.java
+      ReservaAdapter.java
+    MainActivity.java
+  utils/
+    DateUtils.java
+    PriceCalculator.java
+    ValidationUtils.java
+  send/
+    SMSSender.java
+\end{lstlisting}
+
+\subsection{Implementación de la base de datos}
+
+\subsubsection{Entidades Room}
+
+Se han implementado las entidades correspondientes a las tablas de la base de datos:
+
+\textbf{Quad.java:}
+\begin{itemize}
+    \item Anotada con \texttt{@Entity}
+    \item Campos: id\_quad, matricula, tipo, precio\_dia, descripcion
+    \item Índice único en matrícula
+\end{itemize}
+
+\textbf{Reserva.java:}
+\begin{itemize}
+    \item Anotada con \texttt{@Entity}
+    \item Campos: id\_reserva, nombre\_cliente, telefono\_cliente, fecha\_recogida, fecha\_devolucion, precio\_total
+\end{itemize}
+
+\textbf{QuadReservaCrossRef.java:}
+\begin{itemize}
+    \item Entidad de relación para la asociación N:M
+    \item Campos: id\_reserva\_fk, id\_quad\_fk, numCascos
+    \item Claves foráneas definidas
+\end{itemize}
+
+\subsubsection{Data Access Objects (DAOs)}
+
+Se han implementado los DAOs con las operaciones necesarias:
+
+\textbf{QuadDao:}
+\begin{itemize}
+    \item \texttt{@Insert}: Insertar nuevo quad
+    \item \texttt{@Update}: Actualizar quad existente
+    \item \texttt{@Delete}: Eliminar quad
+    \item \texttt{@Query}: Consultas personalizadas (listar todos, buscar por ID, ordenar por diferentes campos)
+\end{itemize}
+
+\textbf{ReservaDao:}
+\begin{itemize}
+    \item \texttt{@Insert}: Insertar nueva reserva
+    \item \texttt{@Update}: Actualizar reserva existente
+    \item \texttt{@Delete}: Eliminar reserva
+    \item \texttt{@Query}: Consultas personalizadas (listar todas, buscar por ID, ordenar por diferentes campos, obtener reservas con quads asociados)
+\end{itemize}
+
+\subsection{Implementación de la interfaz de usuario}
+
+\subsubsection{MainActivity}
+
+Pantalla principal que proporciona acceso a las dos secciones principales:
+\begin{itemize}
+    \item Botón para gestión de Quads
+    \item Botón para gestión de Reservas
+    \item Implementa Material Design con CardViews
+\end{itemize}
+
+\subsubsection{Gestión de Quads}
+
+\textbf{QuadListActivity:}
+\begin{itemize}
+    \item RecyclerView para mostrar listado de quads
+    \item FloatingActionButton para añadir nuevo quad
+    \item Menú de opciones para ordenar por matrícula, tipo o precio
+    \item Click en item para ver detalles
+\end{itemize}
+
+\textbf{QuadActivity:}
+\begin{itemize}
+    \item Formulario para añadir/editar quad
+    \item Validación de campos (matrícula, tipo, precio, descripción)
+    \item Guardado en base de datos mediante ViewModel
+    \item Opciones de modificar y eliminar quad
+\end{itemize}
+
+\subsubsection{Gestión de Reservas}
+
+\textbf{ReservaListActivity:}
+\begin{itemize}
+    \item RecyclerView para mostrar listado de reservas
+    \item FloatingActionButton para crear nueva reserva
+    \item Menú de opciones para ordenar por cliente, móvil, fecha de recogida o devolución
+    \item Click en item para ver detalles
+\end{itemize}
+
+\textbf{ReservaActivity:}
+\begin{itemize}
+    \item Formulario completo para crear/editar reserva
+    \item DatePickers para seleccionar fechas
+    \item Spinner para seleccionar quad
+    \item Campo numérico para número de cascos
+    \item Cálculo automático del precio total
+    \item Validación de fechas y campos obligatorios
+    \item Botón para enviar información por SMS
+    \item Opciones de modificar y eliminar reserva
+\end{itemize}
+
+\subsection{Funcionalidades implementadas}
+
+\subsubsection{Validaciones}
+
+\begin{itemize}
+    \item \textbf{Validación de matrícula:} Formato 4 dígitos + 3 letras, sin duplicados
+    \item \textbf{Validación de fechas:} Fecha de devolución posterior a fecha de recogida
+    \item \textbf{Validación de campos obligatorios:} Todos los campos requeridos deben estar completos
+    \item \textbf{Validación de límites:} Máximo 100 quads y 20000 reservas (requisitos no funcionales)
+    \item \textbf{Validación de cascos:} Según tipo de quad (1 para monoplaza, 1-2 para biplaza)
+\end{itemize}
+
+\subsubsection{Cálculo de precio}
+
+La clase \texttt{PriceCalculator} implementa la lógica de cálculo:
+\begin{itemize}
+    \item Calcula días entre fecha de recogida y devolución
+    \item Multiplica días por precio diario del quad
+    \item Añade suplemento por cascos si corresponde
+    \item Devuelve precio total
+\end{itemize}
+
+\subsubsection{Envío de SMS}
+
+La clase \texttt{SMSSender} utiliza la API de Android para enviar SMS:
+\begin{itemize}
+    \item Solicita permisos de envío de SMS
+    \item Construye mensaje con información de la reserva
+    \item Envía SMS al número del cliente
+    \item Maneja errores de envío
+\end{itemize}
+
+\subsection{Persistencia de datos}
+
+\subsubsection{Room Database}
+
+La clase \texttt{AppQuadsRoomDatabase} extiende RoomDatabase:
+\begin{itemize}
+    \item Singleton pattern para única instancia
+    \item Define las entidades de la base de datos
+    \item Proporciona acceso a los DAOs
+    \item Configuración de versión de base de datos
+    \item Estrategia de migración si es necesaria
+\end{itemize}
+
+\subsubsection{Repositories}
+
+Los repositorios abstraen el acceso a datos:
+
+\textbf{QuadRepository:}
+\begin{itemize}
+    \item Métodos para insertar, actualizar, eliminar quads
+    \item Métodos para consultar quads con LiveData
+    \item Operaciones en background thread
+\end{itemize}
+
+\textbf{ReservaRepository:}
+\begin{itemize}
+    \item Métodos para insertar, actualizar, eliminar reservas
+    \item Métodos para consultar reservas con LiveData
+    \item Gestión de relaciones con quads
+    \item Operaciones en background thread
+\end{itemize}
+
+\subsection{Gestión del ciclo de vida}
+
+\subsubsection{ViewModels}
+
+Los ViewModels sobreviven a cambios de configuración:
+\begin{itemize}
+    \item Mantienen el estado de la UI
+    \item Exponen LiveData observables
+    \item Comunican con los Repositories
+    \item No mantienen referencias a Activities
+\end{itemize}
+
+\subsubsection{LiveData}
+
+Uso de LiveData para actualizaciones reactivas:
+\begin{itemize}
+    \item Observación del ciclo de vida de componentes
+    \item Actualización automática de UI cuando cambian los datos
+    \item Evita memory leaks
+    \item Datos siempre actualizados en rotaciones de pantalla
+\end{itemize}
+
+\newpage
+
+\section{Bibliografía}
+
+\begin{itemize}
+    \item Visual Paradigm Forums. Foro oficial de Visual Paradigm. \\
+    Disponible en: \url{https://forums.visual-paradigm.com/}
+    
+    \item Stack Overflow. Sección ``visual-paradigm'' en Stack Overflow. \\
+    Disponible en: \url{https://stackoverflow.com/questions/tagged/visual-paradigm}
+    
+    \item Android Developers. Documentación oficial de Android. \\
+    Disponible en: \url{https://developer.android.com/docs}
+    
+    \item Android Room Persistence Library. Guía de Room. \\
+    Disponible en: \url{https://developer.android.com/training/data-storage/room}
+    
+    \item Android Architecture Components. Guía de arquitectura. \\
+    Disponible en: \url{https://developer.android.com/topic/architecture}
+    
+    \item Material Design for Android. Guía de Material Design. \\
+    Disponible en: \url{https://material.io/develop/android}
+    
+    \item Gradle Build Tool. Documentación de Gradle. \\
+    Disponible en: \url{https://gradle.org/}
+    
+    \item Stack Overflow. Comunidad de desarrolladores Android. \\
+    Disponible en: \url{https://stackoverflow.com/questions/tagged/android}
+\end{itemize}
+
+\end{document}
